@@ -48,7 +48,7 @@
 }
 
 .search{
-    margin: auto;
+    margin: 10px auto;
     width: 552px;
     height: 200px;
 }
@@ -82,7 +82,7 @@
 .search_movie{
     width: 800px;
     height: 500px;
-    margin: -100px auto auto;
+    margin: -125px auto auto;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -129,7 +129,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
     border: 1px solid gray;
     width: 400px;
     margin: 30px auto;
