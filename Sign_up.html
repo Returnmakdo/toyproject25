@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <title>Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .wrap {
+            background-color: black;
+
+            margin:auto;
+            margin-top: 90px;
+            width: 600px;
+            height: 800px;
+            text-align: center;
+            padding-top: 150px;
+            border-radius: 10px
+        }
+        .wrap {
+            max-width: 600px;
+
+        }
+
+        .Sign_Up {
+            margin-bottom: 40px;
+            margin-right: 200px;
+            color: white;
+            font-size: 60px;
+        }
+
+        .name {
+            width: 400px;
+            height:4rem;
+            font-size: 20px;
+            border-radius: 10px
+        }
+        .email {
+            margin-bottom: 15px;
+            width: 400px;
+            height:4rem;
+            font-size: 20px;
+            border-radius: 10px
+
+        }
+        .Password {
+            width: 400px;
+            height:4rem;
+            font-size: 20px;
+            border-radius: 10px
+        }
+        .CPW {
+            width: 400px;
+            height:4rem;
+            font-size: 20px;
+            border-radius: 10px
+        }
+
+        #Submit {
+            margin: auto;
+            margin-top: 40px;
+            width: 400px;
+
+
+        }
+    </style>
+
+    <script>
+        function submit() {
+            alert('가입이 완료되었습니다.');
+        }
+    </script>
+</head>
+<body>
+    <div class="wrap">
+        <p>
+        <MARQUEE width="400" height="100">
+            <h1 class="Sign_Up">Sign Up</h1>
+        </MARQUEE>
+        </p>
+        <h2></h2>
+        <div class="form-floating mb-3">
+            <input type="Nickname" class="name" id="floatingInput" placeholder="Nickname">
+            <label for="floatingInput"></label>
+        </div>
+        <div class="form-floating">
+            <input type="Email" class="email" id="Email" placeholder="Email">
+            <label for="Email"></label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="Password" class="Password" id="PW" placeholder="Password">
+            <label for="PW"></label>
+        </div>
+        <div class="form-floating">
+            <input type="Confirm Password" class="CPW" id="CPW" placeholder="Confirm Password">
+            <label for="CPW"></label>
+        </div>
+        <div class="d-grid gap-2">
+            <button onclick="submit()" class="btn btn-primary" id="Submit" type="button">Submit</button>
+        </div>
+    </div>
+</body>
+</html>
