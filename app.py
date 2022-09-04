@@ -4,15 +4,25 @@ import requests
 from bs4 import BeautifulSoup
 headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-client = MongoClient('mongodb+srv://test:sparta@cluster0.gxa02vr.mongodb.net/?retryWrites=true&w=majority',tls=True,
-                             tlsAllowInvalidCertificates=True)
-db = client.dbsparta
+# client = MongoClient('mongodb+srv://test:sparta@cluster0.gxa02vr.mongodb.net/?retryWrites=true&w=majority',tls=True,
+#                              tlsAllowInvalidCertificates=True)
+# db = client.dbsparta
 app = Flask(__name__)
 
 
 @app.route('/')
 def home():
     return render_template('index.html')
+
+
+#로그인,회원가입 페이지 이동시키기
+@app.route('/Log_in.html')
+def Login():
+    return render_template('Log_in.html')
+
+@app.route('/Sign_up.html')
+def Signup():
+    return render_template('Sign_up.html')
 
 #키워드로 영화 리스트 검색해주는 api
 @app.route("/search_movie",methods=["post"])

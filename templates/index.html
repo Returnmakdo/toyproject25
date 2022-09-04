@@ -14,11 +14,13 @@
         const dateStr = year + '년' + month + '월' + day + '일';
 
         window.onload = function (){
+            // 오늘날짜 띄우기
             let date = document.getElementById('today');
             date.innerText = dateStr
         }
 
         function starOn(){
+            // 누르면 별채워졌다가 비워졌다가 효과주기
             let star = document.getElementById('star')
             if(star.src.match("star-off")){
                 star.src = "static/star-on.png";
@@ -46,7 +48,8 @@
 </head>
 <body>
 <div class="mytitle">
-    <span class="login"><a href="#">로그인</a> | <a href="#">회원가입</a></span>
+    <!-- 로그인 / 회원가입 a태그 링크 이동은 이렇게 -->
+    <span class="login"><a href="{{url_for('Login')}}">로그인</a> | <a href="{{url_for('Signup')}}">회원가입</a></span>
     <h1>TITLE</h1>
     <div id="today"></div>
 </div>
