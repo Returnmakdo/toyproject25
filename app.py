@@ -100,13 +100,32 @@ def print_movie():
         data5 =soup.find('p',{'class':'con_tx'}).find_all(text=True)
         doc5 = {'des_title':data5[0],'des_content':data5[1]}
 
-
-
-
-
         return jsonify({'movie_info': doc, 'outline':doc2,'actors':doc3,'description':doc5})
     except :
         return jsonify({'msg': '에러.'})
+
+
+
+# 닉네임 별점, 한줄평 저장 db서버 이름필요
+# @app.route("/comment", methods=["POST"])
+# def save_comment():
+#     name_receive = request.form['name_give']
+#     rank_receive = request.form['rank_give']
+#     comment_receive = request.form['comment_give']
+#
+#     doc = {
+#         "name" : name_receive,
+#         "rank" : rank_receive,
+#         "comment" : comment_receive
+#     }
+#     db..insert_one(doc)
+#
+#     return jsonify({'msg': '기록 완료'})
+#
+# @app.route("/comment", methods=["GET"])
+# def show_comment():
+#     comment_list = list(db..find({}, {'_id': False}))
+#     return jsonify({'comments': comment_list})
 
 
 
