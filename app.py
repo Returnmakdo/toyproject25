@@ -83,11 +83,11 @@ def print_movie():
             outline_director = outline.select_one('dd:nth-child(4) > p').text
             outline_age = outline.select_one('dd:nth-child(8) > p').text.replace("\n", '').replace("\r", '').replace("\t", '')
             doc2 ={
-                'outline_1':outline_1,
-                'outline_release':outline_release,
-                'outline_genre':outline_genre,
-                'outline_director':outline_director,
-                'outline_age':outline_age
+                'outline':outline_1,
+                'release':outline_release,
+                'genre':outline_genre,
+                'director':outline_director,
+                'age':outline_age
             }
 
         data3 = soup.select('#content > div.article > div.section_group.section_group_frst > div:nth-child(2) > div > ul > li')
@@ -97,14 +97,18 @@ def print_movie():
             actname = actor.select_one('a.tx_people')['title']
             doc3.append({'actimgurl':actimgurl,'actname':actname})
 
+
+        img_url = soup.select_one('#content > div.article > div.mv_info_area > div.poster > a > img')['src']
+        
+
         data5 =soup.find('p',{'class':'con_tx'}).find_all(text=True)
-        doc5 = {'des_title':data5[0],'des_content':data5[1]}
+        doc5 = {'title':data5[0],'content':data5[1]}
+
+        data6 = soup.select_one('#content > div.article > div.mv_info_area > div.mv_info > div.main_score > div.score.score_left > div.star_score').text
+        
 
 
-
-
-
-        return jsonify({'movie_info': doc, 'outline':doc2,'actors':doc3,'description':doc5})
+        return jsonify({'movie_info': doc, 'outline':doc2,'actors':doc3,'img_url':img_url,'description':doc5,'star_score':data6})
     except :
         return jsonify({'msg': '에러.'})
 
