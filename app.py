@@ -24,6 +24,10 @@ def Login():
 def Signup():
     return render_template('Sign_up.html')
 
+@app.route('/movie_rank.html')
+def movierank():
+    return render_template('movie_rank.html')
+
 #키워드로 영화 리스트 검색해주는 api
 @app.route("/search_movie",methods=["post"])
 def search_movie():

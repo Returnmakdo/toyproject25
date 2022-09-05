@@ -54,16 +54,17 @@ function print_movie(code){
             $('.search_input').val('');
             console.log(response);
 
-            $('#movie_title').text(`제목 : ${movie_info.title} ${movie_info.minititle}`);
-            $('#movie_desc').text(`줄거리 : ${description.des_title}`);
+            $('#movie_title').text(`${movie_info.title} ${movie_info.minititle}`);
+            $('#movie_desc').text(`${description.des_title}`);
             // $('#movie_desc').text(`줄거리 : ${description.des_content}`);
-            $('#movie_date').text(`개봉날짜 : ${outline.outline_release}`);
+            $('#movie_date').text(`${outline.outline_release}`);
             $('#movie_rank').text(`평점 : 이미지 url이랑 같이 추가해야함`);
 
 
         }
     });
 }
+
 
 
 
