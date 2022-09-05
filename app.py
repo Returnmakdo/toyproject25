@@ -15,7 +15,7 @@ def home():
     return render_template('index.html')
 
 
-#로그인,회원가입 페이지 이동시키기
+#로그인,회원가입 페이지 이동시키기이
 @app.route('/Log_in.html')
 def Login():
     return render_template('Log_in.html')
