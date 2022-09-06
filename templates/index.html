@@ -24,7 +24,6 @@
         }
       }
 
-
         function logout(){
             
             $.ajax({
@@ -111,7 +110,8 @@
           url: "/comment",
           data: {},
           success: function (response) {
-            let rows = response["commnets"];
+            let rows = response["comments"];
+
             for (let i = 0; i < rows.length; i++) {
               let name = rows[i]["name"];
               let rank = rows[i]["rank"];
@@ -149,6 +149,28 @@
       <a href="#" id="btn_gotoTop"><img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png" alt="최상단으로 이동" /></a>
     </div>
 
+
+    <div class="favorite">
+      <div class="favorite_header">
+        <p>Favorite List</p>
+      </div>
+      <div class="favorite_body">
+        <div class="text">
+          <p>123123</p>
+          <button type="button" id="favorite_btn">⭐</button>
+        </div>
+        <div class="text">
+          <p>123123</p>
+          <button type="button" id="favorite_btn">⭐</button>
+        </div>
+        <div class="text">
+          <p>123123</p>
+          <button type="button" id="favorite_btn">⭐</button>
+        </div>
+      </div>
+
+    </div>
+
     <div class="search">
       <input type="text" class="search_input" placeholder="찾고 싶은 영화를 입력해주세요"/>
       <button type="button" class="btn btn-outline-success" id="btn-outline-success" onclick="open_box()" onclick="print_movie(999)">검색</button>
@@ -158,6 +180,7 @@
         <ul id="movie_list"></ul>
       </div>
     </div>
+
     <div class="search_movie" id="search_movie">
       <img src="https://movie-phinf.pstatic.net/20220727_209/1658912961873lVd2W_JPEG/movie_image.jpg" />
       <div class="movie_info">
