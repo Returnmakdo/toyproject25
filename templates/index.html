@@ -103,8 +103,6 @@
 
 
     </script>
-
-
     <script src="/static/search.js"></script>
 </head>
 <body>
@@ -114,79 +112,108 @@
     <span class="login"><a href="{{url_for('Login')}}">로그인</a> | <a href="{{url_for('Signup')}}">회원가입</a></span>
     <h1>TITLE</h1>
     <div id="today"></div>
+
 </div>
 
-<div class="search">
-    <input type="text" class="search_input">
-    <button type="button" class="btn btn-outline-success" id='btn-outline-success' onclick="print_movie(999)" >검색</button>
-    <button type="button" class="btn btn-outline-warning" onclick="starOn()"><img src="/static/star-off.png" id="star"></button>
-    <!-- 실시간 검색결과 출력 div -->
-    <div class="search_list" id="search_list" >
-        <ul id="movie_list" >
+    <div class="search">
+        <input type="text" class="search_input">
+        <button type="button" class="btn btn-outline-success" id='btn-outline-success' onclick="print_movie(999)" >검색</button>
+        <button type="button" class="btn btn-outline-warning" onclick="starOn()"><img src="/static/star-off.png" id="star"></button>
+        <!-- 실시간 검색결과 출력 div -->
+        <div class="search_list" id="search_list" >
+            <ul id="movie_list" >
+            </ul>
+        </div>
+    </div>
+<div class="wrap">
+    <div class="search_movie">
+        <img src="https://movie-phinf.pstatic.net/20220727_209/1658912961873lVd2W_JPEG/movie_image.jpg">
+            <div class="movie_info">
+            <div id="movie_title">제목</div>
+            <div id="movie_desc">줄거리</div>
+            <div id="movie_date">개봉날짜</div>
+            <div id="movie_rank">평점</div>
+        여기는 디자인 생각좀 해봐야겠어요
+        </div>
+    </div>
+
+    <div class="favorite">
+        <ul class="list-group">
+          <li class="list-group-item">An item</li>
+          <li class="list-group-item">A second item</li>
+          <li class="list-group-item">A third item</li>
+          <li class="list-group-item">A fourth item</li>
+
         </ul>
     </div>
-</div>
-<div class="search_movie">
-    <img src="https://movie-phinf.pstatic.net/20220727_209/1658912961873lVd2W_JPEG/movie_image.jpg">
-    <div class="movie_info">
-        <div id="movie_title">제목</div>
-        <div id="movie_desc">줄거리</div>
-        <div id="movie_date">개봉날짜</div>
-        <div id="movie_rank">평점</div>
-        여기는 디자인 생각좀 해봐야겠어요
-    </div>
+
 </div>
 
-<div class="mypost" id="post-box">
-    <div class="form-floating mb-3">
-        <input id="name" type="email" class="form-control" placeholder="name@example.com">
-        <label>닉네임 or 로그인아이디</label>
-    </div>
+    <div class="mypost" id="post-box">
+        <div class="form-floating mb-3">
+            <input id="name" type="email" class="form-control" placeholder="name@example.com">
+            <label>닉네임 or 로그인아이디</label>
+        </div>
 
-    <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupSelect01">별점</label>
-        <select class="form-select" id="rank">
-            <option selected>-- 선택하기 --</option>
-            <option value="1">⭐</option>
-            <option value="2">⭐⭐</option>
-            <option value="3">⭐⭐⭐</option>
-            <option value="4">⭐⭐⭐⭐</option>
-            <option value="5">⭐⭐⭐⭐⭐</option>
-        </select>
-    </div>
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">별점</label>
+            <select class="form-select" id="rank">
+                <option selected>-- 선택하기 --</option>
+                <option value="1">⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+            </select>
+        </div>
 
-    <div class="form-floating">
-        <textarea id="comment" class="form-control" placeholder="Leave a comment here"></textarea>
-        <label for="floatingTextarea2">한줄평 남기기</label>
-    </div>
-    <div class="mybtns">
-        <button onclick="save_comment()" type="button" class="btn btn-dark">기록하기</button>
-    </div>
-</div>
-
-<div class="comment-box">
-    <div class="comments">
-        <div class="idRank">
-            <div>prestudy25</div>
-            <div>⭐⭐⭐⭐</div>
-            <div class="onelineComm">한줄평(comment)가져오기</div>
+        <div class="form-floating">
+            <textarea id="comment" class="form-control" placeholder="Leave a comment here"></textarea>
+            <label for="floatingTextarea2">한줄평 남기기</label>
+        </div>
+        <div class="mybtns">
+            <button onclick="save_comment()" type="button" class="btn btn-dark">기록하기</button>
         </div>
     </div>
-    <div class="comments">
-        <div class="idRank">
-            <div>prestudy25</div>
-            <div>⭐⭐⭐⭐</div>
-            <div class="onelineComm">한줄평(comment)가져오기</div>
+
+        <div class="comment-box">
+            <div class="comments">
+                <div class="idRank">
+                    <div>prestudy25</div>
+                    <div>⭐⭐⭐⭐</div>
+                    <div class="onelineComm">한줄평(comment)가져오기</div>
+                </div>
+            </div>
+            <div class="comments">
+                <div class="idRank">
+                    <div>prestudy25</div>
+                    <div>⭐⭐⭐⭐</div>
+                    <div class="onelineComm">한줄평(comment)가져오기</div>
+                </div>
+            </div>
+            <div class="comments">
+                <div class="idRank">
+                    <div>prestudy25</div>
+                    <div>⭐⭐⭐⭐</div>
+                    <div class="onelineComm">한줄평(comment)가져오기</div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="comments">
-        <div class="idRank">
-            <div>prestudy25</div>
-            <div>⭐⭐⭐⭐</div>
-            <div class="onelineComm">한줄평(comment)가져오기</div>
-        </div>
-    </div>
-</div>
+
+
+
+
+
+
+
+<!--     즐겨찾기 누르면 찜목록에  타이틀 및 버튼 추가-->
+<!--     -->
+<!--     찜목록의 버튼을 누르면 삭제되고 db에 해당값 찜목록 삭제-->
+
+
+
+
+
 
 </body>
 </html>

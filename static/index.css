@@ -50,7 +50,7 @@
 .search{
     margin: 10px auto;
     width: 552px;
-    height: 200px;
+    height: 60px;
 }
 
 .search_input{
@@ -79,10 +79,25 @@
     width: 30px;
 }
 
-.search_movie{
-    width: 800px;
+.wrap {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.favorite {
+    width: 20%;
+    height: 250px;
+    position: sticky;
+    top: 300px;
+
+    margin-right: 100px;
+    overflow-y: auto;
+}
+.wrap .search_movie{
+    width: 80%;
     height: 500px;
-    margin: -125px auto auto;
+    margin: 10px 100px 10px 300px;
+
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -91,14 +106,14 @@
     border-radius: 10px;
 }
 
-.search_movie > img{
+.wrap .search_movie > img{
     width: 300px;
     border-radius: 10px;
     border: 1px solid black;
     margin-right: 100px;
 }
 
-.movie_info{
+.wrap .movie_info{
     width: 300px;
 }
 
@@ -147,3 +162,4 @@
     position: absolute;
     margin-top: 30px;
 }
+
