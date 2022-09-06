@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>무비피디아</title>
-    <link rel="stylesheet" href="/static/index.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script><!-- 제이쿼리-->
-    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
-    <style>
-        * {
-            font-family: 'Kanit', sans-serif;
-    }
-
-    </style>
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/index.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Noto+Serif+KR:wght@200&display=swap" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- 제이쿼리-->
     <script>
         function starOn(){
             // 누르면 별채워졌다가 비워졌다가 효과주기
@@ -116,10 +116,38 @@
     <div id="today">
     </div>
     <!-- 로그인 / 회원가입 a태그 링크 이동은 이렇게 -->
-    <div class="wrap">
-    <button class="login"><a href="Log_in.html" style="text-decoration:none;color: white">Log in</a></button>
-    <button class="signup"><a href="Sign_up.html" style="text-decoration:none;color: white">Sign up</a></button>
+    <div class="mytitle">
+    <button class="login"><a href="{{url_for('Login')}}" style="text-decoration:none;color: white">Log in</a></button>
+    <button class="signup"><a href="{{url_for('Signup')}}" style="text-decoration:none;color: white">Sign up</a></button>
     </div>
+    </div>
+
+<div class="fixedBtn_wrap topBtn">
+      <!-- 고정으로나오는 버튼 -->
+      <a href="{{url_for('movierank')}}" class="movie_rank">영화순위 보러가기</a>
+      <a href="#" id="btn_gotoTop"><img src="https://img.cgv.co.kr/R2014/images/common/btn/gotoTop.png" alt="최상단으로 이동" /></a>
+    </div>
+
+
+    <div class="favorite">
+      <div class="favorite_header">
+        <p>Favorite List</p>
+      </div>
+      <div class="favorite_body">
+        <div class="text">
+          <p>123123</p>
+          <button type="button" id="favorite_btn">⭐</button>
+        </div>
+        <div class="text">
+          <p>123123</p>
+          <button type="button" id="favorite_btn">⭐</button>
+        </div>
+        <div class="text">
+          <p>123123</p>
+          <button type="button" id="favorite_btn">⭐</button>
+        </div>
+      </div>
+
     </div>
 
 <div class="search">
@@ -133,17 +161,21 @@
         </ul>
     </div>
 </div>
-<div class="search_movie">
-    <img src="https://movie-phinf.pstatic.net/20220727_209/1658912961873lVd2W_JPEG/movie_image.jpg">
-    <div class="movie_info">
-        <div id="movie_title">제목</div>
-        <div id="movie_desc">줄거리</div>
-        <div id="movie_date">개봉날짜</div>
-        <div id="movie_rank">평점</div>
-    </div>
-</div>
 
-<div class="mypost" id="post-box">
+<div class="search_movie" id="search_movie">
+      <img src="https://movie-phinf.pstatic.net/20220727_209/1658912961873lVd2W_JPEG/movie_image.jpg" />
+      <div class="movie_info">
+        <div id="movie_title">영화 제목</div>
+        <hr>
+        <div id="movie_desc">줄거리</div>
+        <hr>
+        <div id="movie_date">개봉일자</div>
+        <hr>
+        <div id="movie_rank">평점</div>
+      </div>
+    </div>
+
+    <div class="mypost" id="post-box">
     <div class="form-floating mb-3">
         <input id="name" type="email" class="form-control" placeholder="name@example.com">
         <label>Nickname & ID</label>
@@ -163,7 +195,7 @@
 
     <div class="form-floating">
         <textarea id="comment" class="form-control" placeholder="Leave a comment here"></textarea>
-        <label for="floatingTextarea2">Comment</label>
+        <label for="floatingTextarea2">한줄평 남기기</label>
     </div>
     <div class="mybtns">
         <button onclick="save_comment()" type="button" class="btn btn-dark">기록하기</button>
