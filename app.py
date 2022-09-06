@@ -35,6 +35,23 @@ def Signup():
 def movierank():
     return render_template('movie_rank.html')
 
+@app.route("/sign_up", methods=["POST"])
+def Sign_up_post():
+    name_receive = request.form['name_give']
+    email_receive = request.form['email_give']
+    pw_receive = request.form['pw_give']
+    cpw_receive = request.form['cpw_give']
+
+    doc = {
+        'name':name_receive,
+        'email':email_receive,
+        'pw':pw_receive,
+        'cpw':cpw_receive
+    }
+    db.Sign_up.insert_one(doc)
+
+    return jsonify({'msg':'Register Complete!!'})
+
 #키워드로 영화 리스트 검색해주는 api
 @app.route("/search_movie",methods=["post"])
 def search_movie():

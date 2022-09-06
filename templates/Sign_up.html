@@ -74,14 +74,28 @@
             margin: auto;
             margin-top: 40px;
             width: 400px;
-
-
         }
     </style>
 
     <script>
-        function submit() {
-            alert('가입이 완료되었습니다.');
+        $(document).ready(function(){
+
+        });
+
+        function Sign_up_post() {
+             let name = $('#name').val()
+             let email = $('#email').val()
+             let pw = $('#pw').val()
+             let cpw = $('#cpw').val()
+
+            $.ajax({
+                type: 'POST',
+                url: '/sign_up',
+                data: { name_give: name, email_give: email, pw_give: pw, cpw_give: cpw},
+                success: function (response) {
+                    alert(response['msg'])
+                }
+            });
         }
     </script>
 </head>
@@ -94,23 +108,23 @@
         </p>
         <h2></h2>
         <div class="form-floating mb-3">
-            <input type="Nickname" class="name" id="floatingInput" placeholder="Nickname">
+            <input type="Nickname" class="name" id="name" required="required" placeholder="Nickname">
             <label for="floatingInput"></label>
         </div>
         <div class="form-floating">
-            <input type="Email" class="email" id="Email" placeholder="Email">
+            <input type="Email" class="email" id="email" required="required" placeholder="Email">
             <label for="Email"></label>
         </div>
         <div class="form-floating mb-3">
-            <input type="Password" class="Password" id="PW" placeholder="Password">
+            <input type="Password" class="Password" id="pw" required="required" placeholder="Password">
             <label for="PW"></label>
         </div>
-        <div class="form-floating">
-            <input type="Confirm Password" class="CPW" id="CPW" placeholder="Confirm Password">
+        <div class="form-floating mb-3">
+            <input type="Password" class="CPW" id="cpw" required="required" placeholder="Confirm Password">
             <label for="CPW"></label>
         </div>
         <div class="d-grid gap-2">
-            <button onclick="submit()" class="btn btn-primary" id="Submit" type="button">Submit</button>
+            <button onclick="Sign_up_post()" class="btn btn-primary" id="Submit" type="button">Submit</button>
         </div>
     </div>
 </body>
