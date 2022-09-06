@@ -72,11 +72,10 @@ function print_movie(code){
                 return window.location.href ='/';
             }
             
-
-
         }
     });
 }
+
 
 
 
