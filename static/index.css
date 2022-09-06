@@ -17,12 +17,12 @@
 
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;inputGroupSelect01
     justify-content: center;
 
     position: relative;
 }
-.wrap {
+.mytitle {
     height: 30px;
     margin-left: 85%;
     margin-bottom: 10%;
