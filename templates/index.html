@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -29,7 +29,33 @@
             }
         }
 
+        function logout(){
+            console.log('gld')
+            $.ajax({
+                type: "POST",
+                url: "/logout",
+                data: {},
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    alert(`이용해주셔서 감사합니다!`);
+                    document.location.href = '/';                    
+                }    
+            });
+        }
+
+
         $(document).ready(function () {
+
+            //로그인 여부 판단
+            if("{{data}}" === 'login'){
+                $('.login').empty();
+                let temp_html =`
+                    <p>반갑습니다 {{data1}}님!</a> | <a href="#" onclick="logout()">로그아웃</a>
+                `;
+                $('.login').append(temp_html);
+            }
+
+
             //포커스 아웃 시 검색목록 제거
             $('.search_input').blur(function (){
                 if($('.search_input').val() === ''){

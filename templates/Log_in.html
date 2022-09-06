@@ -92,10 +92,45 @@
     </style>
     <script>
         function log_in() {
-            alert('25조 프로젝트에 오신 것을 환영합니다.');
+            let jsonData = {
+                'email': $('#box_1').val(),
+                'pw': $('#box_2').val()
+            }
+            
+            $.ajax({
+                type: "POST",
+                url: "/login",
+                data: JSON.stringify(jsonData),
+                dataType: "JSON",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    let result = response.result;
+                    let msg = response.msg;
+
+                    if(result === 'success'){
+
+                        alert(`어서오세요 !`);
+                        document.location.href = '/';
+                    }else{
+                        alert(`${msg}`);
+                    }
+
+
+                    
+                }    
+            });
         }
         function Sign_Up() {
-            alert('회원 가입 화면으로 이동합니다.');
+            
+            $.ajax({
+                type: "GET",
+                url: "/user_only",
+                data: {},
+                success: function (response) {
+                    console.log(response);
+
+                }    
+            });
         }
         function Sign_In_KAKAO() {
             alert('카카오계정으로 로그인합니다.');
@@ -114,7 +149,7 @@
                     <input type="password" class="box-2" id="box_2" placeholder="Password">
                     <label for="box_2"></label>
                         <div class="d-grid gap-2">
-                    <button onclick="log_in()" class="login" id="box_3" type="button">Log In</button>
+                            <button onclick="log_in()" class="login" id="box_3" type="button">Log In</button>
                         </div>
                             <div>
                               <p class="p_tag">or</p>
@@ -122,10 +157,10 @@
                             <div>
                             <button onclick="Sign_Up()" class="Sign_Up" id="box_4" type="button">Sign Up</button>
                         </div>
-                        <div>
+                    <div>
                         <button onclick="Sign_In_KAKAO()" class="Sign_In_KAKAO" id="box_5" type="button">Sign in with KAKAO</button>
                     </div>
-                </div>
+            </div>
         </div>
     </div>
 </body>

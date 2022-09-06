@@ -81,5 +81,3 @@ function print_movie(code){
 
 
 
-
-// {'movie_info': doc, 'outline':doc2,'actors':doc3,'img_url':img_url,'description':doc5,'star_score':data6}

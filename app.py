@@ -1,18 +1,25 @@
-from flask import Flask, render_template, request, jsonify
+# -*- coding: utf-8 -*-
+from xml.dom.minidom import Identified
+from flask import Flask, render_template, request, jsonify, session 
 from pymongo import MongoClient
 import requests
 from bs4 import BeautifulSoup
+
+
 headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-# client = MongoClient('mongodb+srv://test:sparta@cluster0.gxa02vr.mongodb.net/?retryWrites=true&w=majority',tls=True,
-#                              tlsAllowInvalidCertificates=True)
-# db = client.dbsparta
+client = MongoClient('mongodb+srv://test:sparta@cluster0.gxa02vr.mongodb.net/?retryWrites=true&w=majority',tls=True,
+                             tlsAllowInvalidCertificates=True)
+db = client.dbsparta
 app = Flask(__name__)
-
+app.secret_key = 'proj25'
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    if "name" in session:        
+        return render_template('index.html',data = 'login',data1 = session['name'])
+    else:
+        return render_template('index.html',data = 'notlogin')
 
 
 #로그인,회원가입 페이지 이동시키기
@@ -34,9 +41,6 @@ def search_movie():
     try:
         data = requests.get('https://movie.naver.com/movie/search/result.naver?query='+keyword+'&section=movie&ie=utf8', headers=headers)
         soup = BeautifulSoup(data.text, 'html.parser')
-
-        # old_content > ul.search_list_1 > li:nth-child(1) > dl > dt > a
-        # old_content > ul.search_list_1.fixed > li:nth-child(1) > dl > dt > a
 
         data1 = soup.find('ul', {'class': 'search_list_1'})
         data2 = data1.findAll('dt')
@@ -113,6 +117,34 @@ def print_movie():
         return jsonify({'msg': '에러.'})
 
 
+
+
+@app.route("/login",methods=["post"])
+def login():
+    input_data = request.get_json()
+    email = input_data['email']
+    pw = input_data['pw']
+    
+    #db조회
+    try:
+        user = db.Sign_up.find_one({'email': email})
+        user_name = user['name']
+        if email == user['email'] and pw == user['pw']:
+
+            session['name'] = user_name
+            return jsonify({'msg' : '성공!','result':'success'})
+            
+        else:
+            return jsonify({'msg' : '비밀번호를 확인해주세요.','result':'false'})
+
+    except:        
+        return jsonify({'msg': '일치하는 계정이 없습니다.','result':'false'})
+
+
+@app.route("/logout",methods=["post"])
+def logout():
+    session.pop('name',None)
+    return jsonify({'result':'성공!!'})
 
 
 if __name__ == '__main__':
