@@ -21,14 +21,14 @@ function send_keyword() {
                     let title = movie_list[i].title;
                     let code = movie_list[i].code;
                     let temp_html = `
-                                        <li><u><a onclick="print_movie(${code})" id="printmovie${i}" value="${code}">${title}</a></u></li>
+                                        <li><a onclick="print_movie(${code})" id="printmovie${i}" value="${code}">${title}</a></li>
                               `;
                     $('#movie_list').append(temp_html);
                 }
             } else if (msg === '검색 결과가 없습니다.') {
                 $('#movie_list').empty();
                 let temp_html = `
-                                    <li class='search none' style="list-style:none;">검색 결과가 없습니다.</li>
+                                    <li class='search none' style="height: 20px; list-style: circle;">검색 결과가 없습니다.</li>
                               `;
                 $('#movie_list').append(temp_html);
             }
