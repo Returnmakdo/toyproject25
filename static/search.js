@@ -12,7 +12,7 @@ function send_keyword() {
         success: function (response) {
             let msg = response.msg;
             let movie_list = response.movie;
-
+ 
             if (msg === 'o') {
                 
                 $('.search_input').empty();
