@@ -10,7 +10,7 @@
   height: 250px;
 
   background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("https://movie-phinf.pstatic.net/20210715_95/1626338192428gTnJl_JPEG/movie_image.jpg");
+    url("https://media.istockphoto.com/photos/small-movie-theater-picture-id1047762070?k=20&m=1047762070&s=612x612&w=0&h=ufE76C0PBaLbzgMKJQmyZL68Dgdv9OjWYG0amIkdZ3Y=");
   background-position: center;
   background-size: cover;
 
@@ -27,25 +27,49 @@
 .mytitle > div {
   font-size: 15px;
   color: white;
-
   margin-top: 10px;
 }
 
-.login {
-  height: 30px;
-  margin-left: 90%;
-  margin-bottom: 10%;
+.wrap{
   position: absolute;
+  display: flex;
+  flex-direction: row;
+  margin-left: 87%;
+  top: 0;
 }
 
-.login > a {
-  color: white;
-  text-decoration: none;
-}
+.login {
+    width: 100px;
+    height: 45px;
+    box-shadow:0 4px 16px;
+    background-color: #004fff;
+    border: none;
+    border-radius: 50px;
+    color: rgba(0, 79, 255, 0.3);
+    font-size: 18px;
+    margin-right: 10px;
+    }
+    button:hover {
+      background-color: rgba(0, 79, 255, 0.9);
+      cursor: pointer;
+      box-shadow: rgba(0, 79, 255, 0.6);
+    }
 
-.login > a:hover {
-  color: darkgray;
-  text-decoration: none;
+
+.signup {
+    width: 100px;
+    height: 45px;
+    box-shadow:0 4px 16px;
+    background-color: #004fff;
+    border: 1px;
+    border-radius: 50px;
+    color: rgba(0, 79, 255, 0.3);
+    font-size: 18px;
+    }
+    button:hover{
+        background-color: rgba(0, 79, 255, 0.9) ;
+        cursor: pointer;
+        box-shadow: rgba(0, 79, 255, 0.6);
 }
 
 .search {
@@ -80,6 +104,27 @@
   width: 30px;
 }
 
+.search_list{
+  width: 400px;
+  z-index: 2;
+  position: relative;
+  line-height: 30px;
+  background-color: #000000;
+  color: white;
+  border-radius: 10px;
+  margin-top: -7px;
+}
+
+#movie_list{
+  list-style: circle;
+}
+
+#movie_list:hover{
+  opacity: 90%;
+  cursor: pointer;
+}
+
+
 .search_movie {
   color: white;
   width: 800px;
@@ -92,6 +137,8 @@
   border: 1px solid gray;
   border-radius: 10px;
   background-color: black;
+  z-index: 1;
+  position: relative;
 }
 
 .search_movie > img {
@@ -298,15 +345,13 @@
 .favorite {
   width: 250px;
   position: fixed;
-  right: 200px;
+  right: 50px;
   top: 300px;
   max-height: 350px;
 
   border-radius: 15px;
   z-index: 6;
   box-shadow: 5px 15px 10px 5px #1b1b1b;
-
-
 }
 .favorite_header {
   display: flex;
@@ -336,8 +381,6 @@
   background-color: #424242;
   border-radius: 0 0 15px 15px;
   overflow: auto;
-
-
 }
 .favorite_body .text{
   display: flex;

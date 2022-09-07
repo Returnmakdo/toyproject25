@@ -19,13 +19,14 @@ function send_keyword() {
                 $('#btn-outline-success').attr('onclick',`print_movie(${movie_list[0].code})`);
                 // for (let i = 0; i < movie_list.length; i++) {
                 for (let i = 0; i < 5; i++) {
+
                     try{
                         let title = movie_list[i].title;
                         let code = movie_list[i].code;
                         let temp_html = `
-                                        <li><u><a onclick="print_movie(${code})" id="printmovie${i}" value="${code}">${title}</a></u></li>
-                              `;
-                        $('#movie_list').append(temp_html);
+                                            <li><a onclick="print_movie(${code})" id="printmovie${i}" value="${code}">${title}</a></li>
+                                `;
+                            $('#movie_list').append(temp_html);
                     }catch (e){
                         
                     }
@@ -34,7 +35,7 @@ function send_keyword() {
             } else if (msg === '검색 결과가 없습니다.') {
                 $('#movie_list').empty();
                 let temp_html = `
-                                    <li class='search none' style="list-style:none;">검색 결과가 없습니다.</li>
+                                    <li class='search none' style="height: 20px; list-style: circle;">검색 결과가 없습니다.</li>
                               `;
                 $('#movie_list').append(temp_html);
             }
