@@ -18,14 +18,112 @@
 
 
         function starOn(){
-            // 누르면 별채워졌다가 비워졌다가 효과주기
-            let star = document.getElementById('star')
-            if (star.src.match("star-off")){
-                star.src = "/static/star-on.png";
-            } else{
+            
+            $.ajax({
+                type: "POST",
+                url: "/loginchk",
+                data: {},
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    let result = response.result;
+                    let movie_code = $('#movie_code').val();
+                    let movie_title = $('#movie_title_hidden').val(); 
+                    //로그인 여부 체크
+                    if(result === 'loginpage'){
+                        alert(`로그인 해주시길 바랍니다!!`);
+                        document.location.href = '/Log_in.html';                    
+                    }else if (result === 'login'){
+                        
+                        // 로그인 한 상태라면 누르면 별채워졌다가 비워졌다가 효과주기
+                        let star = document.getElementById('star');
+                        if (star.src.match("star-off")){
+                            if(movie_code === '999'){
+                                alert('영화를 검색해주세요');
+                            }else {
+                                addfavorite(movie_code,movie_title);
+                                printfavorite();
+                                alert('추가되었습니다!');
+                                star.src = "/static/star-on.png";
+                            }
+                            
+                        } else{
+                            del_favorite(movie_code);
+                            star.src = "/static/star-off.png";
+
+                        }
+
+                    }
+                }    
+            });
+        }
+
+        //즐겨찾기 추가
+        function addfavorite(movie_code,movie_title){
+
+            let favorite_code = movie_code;
+            let favorite_title = movie_title;
+            
+            $.ajax({
+                type: "POST",
+                url: "/addfavorite",
+                data: {
+                    'favorite_code':favorite_code,
+                    'favorite_title':favorite_title
+                },
+                success: function (response) {
+                    console.log('성공스르');
+                }
+            });
+        }
+        //즐겨찾기 목록 출력
+        function printfavorite(){
+
+            $('.favorite_body').empty();
+
+            $.ajax({
+                type: "POST",
+                url: "/printfavorite",
+                data: {},
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    console.log(response);
+                    let favoritelist = response.favorite;
+                    for(let i = 0 ; i < favoritelist.length ; i++){
+
+                        let favorite_temp =`
+                            <div class="text">
+                                <u style="color:#fff;"><p onclick="print_movie(${favoritelist[i].favorite_code})">${favoritelist[i].favorite_title}</p></u>
+                                <button type="button" id="favorite_btn" onclick="del_favorite(${favoritelist[i].favorite_code})">⭐</button>
+                            </div>
+                        `;  
+                        $('.favorite_body').append(favorite_temp);
+                    }
+                    
+                }    
+            });
+        }
+
+        function del_favorite(code){
+            let del_code = code;
+            let now_print = $('#movie_code').val();
+            if(now_print == del_code){
+                let star = document.getElementById('star');
                 star.src = "/static/star-off.png";
             }
+            $.ajax({
+                type: "POST",
+                url: "/del_favorite",
+                data: {
+                    'del_code':del_code
+                },
+                success: function (response) {
+                    alert('삭제되었습니다!');
+                    printfavorite();  
+                             
+                }
+            });
         }
+
 
         function logout(){
             
@@ -48,9 +146,14 @@
             if("{{data}}" === 'login'){
                 $('.login').empty();
                 let temp_html =`
-                    <p>반갑습니다 {{data1}}님!</a> | <a href="#" onclick="logout()">로그아웃</a>
-                `;
-                $('.login').append(temp_html);
+                <button class="login"><a href="#" style="text-decoration:none;color: white;font">{{data1}}님</a></button>
+                <button class="signup"><a href="#" onclick="logout()" style="text-decoration:none;color: white">로그아웃</a></button>`;
+                $('.wrap').append(temp_html);
+                printfavorite();
+            }else{
+                let header_temp_html = `<button class="login"><a href="{{url_for('Login')}}" style="text-decoration:none;color: white">Log in</a></button>
+                <button class="signup"><a href="{{url_for('Signup')}}" style="text-decoration:none;color: white">Sign up</a></button>`;
+                $('.wrap').append(header_temp_html);
             }
 
             //코멘트 보이기
@@ -145,8 +248,7 @@
     </div>
     <!-- 로그인 / 회원가입 a태그 링크 이동은 이렇게 -->
     <div class="wrap">
-    <button class="login"><a href="{{url_for('Login')}}" style="text-decoration:none;color: white">Log in</a></button>
-    <button class="signup"><a href="{{url_for('Signup')}}" style="text-decoration:none;color: white">Sign up</a></button>
+        <!--로그인 회원가입 버튼 영역-->
     </div>
     </div>
 
@@ -163,16 +265,8 @@
       </div>
       <div class="favorite_body">
         <div class="text">
-          <p>123123</p>
-          <button type="button" id="favorite_btn">⭐</button>
-        </div>
-        <div class="text">
-          <p>123123</p>
-          <button type="button" id="favorite_btn">⭐</button>
-        </div>
-        <div class="text">
-          <p>123123</p>
-          <button type="button" id="favorite_btn">⭐</button>
+          <p>즐겨찾는 영화가 없습니다.</p>
+          <button type="button" id="favorite_btn" onclick="del_favorite()"></button>
         </div>
       </div>
     </div>
@@ -191,13 +285,15 @@
 <div class="search_movie" id="search_movie">
       <img id="movie_img" src="https://movie-phinf.pstatic.net/20220727_209/1658912961873lVd2W_JPEG/movie_image.jpg" />
       <div class="movie_info">
-        <div id="movie_title">영화 제목</div>
+        <div id="movie_title" value="영화제목">영화 제목</div>
         <hr>
         <div id="movie_desc">줄거리</div>
         <hr>
         <div id="movie_date">개봉일자</div>
         <hr>
         <div id="movie_rank">평점</div>
+        <input type="hidden" value="999" id="movie_code">
+        <input type="hidden" value="999" id="movie_title_hidden">
       </div>
     </div>
 

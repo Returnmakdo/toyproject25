@@ -53,21 +53,41 @@ function print_movie(code){
         },
         success: function (response) {
             console.log(response);
+            
             let movie_info = response.movie_info;
             let description = response.description;
             let outline = response.outline;
             let movie_img = response.img_url;
             let star_score = response.star_score;
+
+            let star = document.getElementById('star');
+            star.src = "/static/star-off.png";
             try {
+                
                 $('#movie_list').empty();
                 $('.search_input').val('');
-                
                 $('#movie_img').attr('src',`${movie_img}`);
                 $('#movie_title').text(`제목 : ${movie_info.title} ${movie_info.minititle}`);
+                $('#movie_title_hidden').attr('value',`${movie_info.title}`);
                 $('#movie_desc').text(`줄거리 : ${description.title}`);
                 // $('#movie_desc').text(`줄거리 : ${description.content}`);
                 $('#movie_date').text(`개봉날짜 : ${outline.release}`);
                 $('#movie_rank').text(`평점 : ${star_score}`);
+                $('#movie_code').attr('value',`${movie_info.code}`);
+
+                //영화 진입 시 즐겨찾기 목록 포함 여부 
+                //포함이면 별 버튼 눌러놓기
+                let favorite = response.favorite
+                if(favorite !== undefined){
+                    for(let i = 0 ; i < favorite.length; i++){
+                        if(favorite[i].favorite_code === movie_info.code){
+                            star.src = "/static/star-on.png";
+                            break;
+                        }
+                    }
+                }
+                
+
             } catch {
                 alert('선택하신 영화의 정보가 올바르지 않습니다.');
                 return window.location.href ='/';

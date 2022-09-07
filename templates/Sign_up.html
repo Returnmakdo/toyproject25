@@ -93,6 +93,7 @@
                 data: { name_give: name, email_give: email, pw_give: pw, cpw_give: cpw},
                 success: function (response) {
                     alert(response['msg'])
+                    document.location.href = '/';                    
                 }
             });
         }

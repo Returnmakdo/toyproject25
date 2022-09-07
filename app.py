@@ -131,9 +131,13 @@ def print_movie():
 
         data6 = soup.select_one('#content > div.article > div.mv_info_area > div.mv_info > div.main_score > div.score.score_left > div.star_score').text
         
-
-
-        return jsonify({'movie_info': doc, 'outline':doc2,'actors':doc3,'img_url':img_url,'description':doc5,'star_score':data6})
+        try:
+            user_name = session['name']
+            data7 = list(db.favorite.find({'user_name':user_name}, {'_id': False}))
+            print('dmdkr!!!!',data7)
+            return jsonify({'movie_info': doc, 'outline':doc2,'actors':doc3,'img_url':img_url,'description':doc5,'star_score':data6,'favorite':data7})
+        except:
+            return jsonify({'movie_info': doc, 'outline':doc2,'actors':doc3,'img_url':img_url,'description':doc5,'star_score':data6})
 
     except :
         return jsonify({'msg': '에러.'})
@@ -190,6 +194,50 @@ def login():
 def logout():
     session.pop('name',None)
     return jsonify({'result':'성공!!'})
+
+
+# 로그인 체크 api (야매)
+@app.route("/loginchk",methods=["post"])
+def loginchk():
+    try :
+        return jsonify({'result':'login'})
+    except:
+        return jsonify({'result':'loginpage'})
+    
+# 즐겨찾기 추가 api
+@app.route("/addfavorite",methods=["post"])
+def addfavorite():
+    favorite_code = request.form['favorite_code']
+    favorite_title = request.form['favorite_title']
+    user_name = session['name']
+    # print(':::>',session['name'])
+    # print(favorite_code)
+    # print(favorite_title)
+    doc = {
+        "user_name" : user_name,
+        "favorite_code" : favorite_code,
+        "favorite_title":favorite_title
+    }
+    db.favorite.insert_one(doc)
+    
+    return jsonify({'result':'success'})
+
+#즐겨찾기 목록 반환하는 api
+@app.route("/printfavorite",methods=["post"])
+def printfavorite():
+    user_name = session['name']
+    favorite_list = list(db.favorite.find({'user_name':user_name}, {'_id': False}))
+    return jsonify({'favorite':favorite_list})
+
+@app.route("/del_favorite",methods=["post"])
+def del_favorite():
+    user_name = session['name']
+    del_code = request.form['del_code']
+    
+    db.favorite.delete_one({'favorite_code':del_code,
+        'user_name' : user_name})
+    return jsonify({'result':'success'})
+
 
 
 if __name__ == '__main__':
