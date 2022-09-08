@@ -2,7 +2,8 @@
 function send_keyword() {
 
     let keyword = $('.search_input').val();
-
+    $('#movie_list').empty();
+    
     $.ajax({
         type: "POST",
         url: "/search_movie",
@@ -51,8 +52,8 @@ function print_movie(code){
         data: {
             'code': code
         },
+        async: false,
         success: function (response) {
-            console.log(response);
             
             let movie_info = response.movie_info;
             let description = response.description;

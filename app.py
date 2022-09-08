@@ -80,7 +80,18 @@ def search_movie():
     except AttributeError:
         return jsonify({'msg': '검색 결과가 없습니다.'})
 
+@app.route("/rank_movie",methods=["post"])
+def rank_movie():
+    data = requests.get('https://movie.naver.com/movie/sdb/rank/rmovie.naver', headers=headers)
+    soup = BeautifulSoup(data.text, 'html.parser')
+    rank_data = soup.findAll("div",class_="tit3")
+    
+    for rank in rank_data:
+        code = rank.find('a')['href'].split('=')[1]
+        title = rank.find('a')['title']
+        print(code,title)    
 
+    return jsonify({'msg': '성공'})
 
 
 @app.route("/print_movie",methods=["post"])
@@ -134,7 +145,6 @@ def print_movie():
         try:
             user_name = session['name']
             data7 = list(db.favorite.find({'user_name':user_name}, {'_id': False}))
-            print('dmdkr!!!!',data7)
             return jsonify({'movie_info': doc, 'outline':doc2,'actors':doc3,'img_url':img_url,'description':doc5,'star_score':data6,'favorite':data7})
         except:
             return jsonify({'movie_info': doc, 'outline':doc2,'actors':doc3,'img_url':img_url,'description':doc5,'star_score':data6})
@@ -200,6 +210,7 @@ def logout():
 @app.route("/loginchk",methods=["post"])
 def loginchk():
     try :
+        user_name = session['name']
         return jsonify({'result':'login'})
     except:
         return jsonify({'result':'loginpage'})

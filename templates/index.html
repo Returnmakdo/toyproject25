@@ -14,48 +14,66 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- 제이쿼리-->
     <script>
+        // function rank_movie(){
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "/rank_movie",
+        //         data: {},
+        //         contentType: "application/json; charset=utf-8",
+        //         success: function (response) {
+        //             console.log(response);
+        //         }
+
+        //     });
+        // }
 
 
-
-        function starOn(){
-            
+        function loginchk (code){
+            let result ;
             $.ajax({
                 type: "POST",
                 url: "/loginchk",
                 data: {},
+                async: false,//ajax 호출 결과값을 리턴하기 위한 설정
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
-                    let result = response.result;
-                    let movie_code = $('#movie_code').val();
-                    let movie_title = $('#movie_title_hidden').val(); 
-                    //로그인 여부 체크
-                    if(result === 'loginpage'){
-                        alert(`로그인 해주시길 바랍니다!!`);
-                        document.location.href = '/Log_in.html';                    
-                    }else if (result === 'login'){
-                        
-                        // 로그인 한 상태라면 누르면 별채워졌다가 비워졌다가 효과주기
-                        let star = document.getElementById('star');
-                        if (star.src.match("star-off")){
-                            if(movie_code === '999'){
-                                alert('영화를 검색해주세요');
-                            }else {
-                                addfavorite(movie_code,movie_title);
-                                printfavorite();
-                                alert('추가되었습니다!');
-                                star.src = "/static/star-on.png";
-                            }
-                            
-                        } else{
-                            del_favorite(movie_code);
-                            star.src = "/static/star-off.png";
-
-                        }
-
-                    }
-                }    
+                    result = response.result;
+                }
             });
+            return result;
         }
+
+        function starOn(){
+            let result = loginchk();
+            let movie_code = $('#movie_code').val();
+            let movie_title = $('#movie_title_hidden').val(); 
+            //로그인 여부 체크
+            if(result === 'loginpage'){
+                alert(`로그인 해주시길 바랍니다!!`);
+                document.location.href = '/Log_in.html';                    
+            }else if (result === 'login'){
+                
+                // 로그인 한 상태라면 누르면 별채워졌다가 비워졌다가 효과주기
+                let star = document.getElementById('star');
+                if (star.src.match("star-off")){
+                    if(movie_code === '999'){
+                        alert('영화를 검색해주세요');
+                    }else {
+                        addfavorite(movie_code,movie_title);
+                        printfavorite();
+                        alert('추가되었습니다!');
+                        star.src = "/static/star-on.png";
+                    }
+                    
+                } else{
+                    del_favorite(movie_code);
+                    star.src = "/static/star-off.png";
+
+                }
+
+            }
+        }    
+            
 
         //즐겨찾기 추가
         function addfavorite(movie_code,movie_title){
@@ -66,6 +84,7 @@
             $.ajax({
                 type: "POST",
                 url: "/addfavorite",
+                async: false,
                 data: {
                     'favorite_code':favorite_code,
                     'favorite_title':favorite_title
@@ -84,6 +103,7 @@
                 type: "POST",
                 url: "/printfavorite",
                 data: {},
+                async: false,
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
                     console.log(response);
@@ -116,6 +136,7 @@
                 data: {
                     'del_code':del_code
                 },
+                async: false,
                 success: function (response) {
                     alert('삭제되었습니다!');
                     printfavorite();  
@@ -165,10 +186,23 @@
                     $('#movie_list').empty();
                 }
             });
+
+
+            //키업 딜레이
+            var itcdelay = (function () {
+            // Function
+            var itcTimer = 0;
+            return function (callback, ms) {
+                clearTimeout(itcTimer);
+                itcTimer = setTimeout(callback, ms);
+            };
+            })();
+            
             //키보드 입력 감지
             $(".search_input").keyup(function () {
-                $('#movie_list').empty();
-                send_keyword();
+                itcdelay(function () {
+                    send_keyword();
+                }, 100);
             });
 
             //년,월,일 시간
