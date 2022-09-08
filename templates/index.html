@@ -201,8 +201,9 @@
             //키보드 입력 감지
             $(".search_input").keyup(function () {
                 itcdelay(function () {
+                    $('#movie_list').empty();
                     send_keyword();
-                }, 100);
+                }, 150);
             });
 
             //년,월,일 시간
