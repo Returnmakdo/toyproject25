@@ -24,7 +24,7 @@
             background-color: black;
 
             margin: auto;
-            margin-top: 90px;
+            margin-top: 60px;
             width: 600px;
             height: 800px;
             text-align: center;
@@ -93,7 +93,7 @@
                 url: '/sign_up',
                 data: { name_give: name, email_give: email, pw_give: pw, cpw_give: cpw},
                 success: function (response) {
-                    alert(response['msg'])
+                    console.log(response)
                 }
             });
         }
@@ -109,10 +109,10 @@
         <h2></h2>
         <div class="form-floating mb-3">
             <input type="Nickname" class="name" id="name" required="required" placeholder="Nickname">
-            <label for="floatingInput"></label>
+            <label for="name"></label>
         </div>
         <div class="form-floating">
-            <input type="Email" class="email" id="email" required="required" placeholder="Email">
+            <input type="Email" class="email" id="email" required="required" placeholder="name@email.com">
             <label for="Email"></label>
         </div>
         <div class="form-floating mb-3">
@@ -124,7 +124,7 @@
             <label for="CPW"></label>
         </div>
         <div class="d-grid gap-2">
-            <button onclick="Sign_up_post()" class="btn btn-primary" id="Submit" type="button">Submit</button>
+            <button onclick="Sign_up_post()" class="btn btn-primary" id="Submit" type="button">Register</button>
         </div>
     </div>
 </body>

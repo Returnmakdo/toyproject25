@@ -26,7 +26,7 @@
 
             width: 600px;
             height: 800px;
-            margin-top: 150px;
+            margin-top: 60px;
             padding-top: 100px;
             border-radius: 10px
          }
@@ -91,14 +91,46 @@
        }
     </style>
     <script>
-        function log_in() {
-            alert('25조 프로젝트에 오신 것을 환영합니다.');
+            function log_in() {
+            $.ajax({
+                type: 'GET',
+                url: '/Sign_up_post',
+                data: {},
+                success: function (response) {
+                    console.log(response)
+                }
+            });
         }
+    </script>
+
+    <script>
         function Sign_Up() {
-            alert('회원 가입 화면으로 이동합니다.');
+            window.location.href = "Sign_up"
         }
+    </script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script>
+        Kakao.init('ee299e417704d55a27402949986ae1ce');
+
         function Sign_In_KAKAO() {
-            alert('카카오계정으로 로그인합니다.');
+            window.Kakao.Auth.login({
+                scope: 'profile_nickname',
+                success: function (response) {
+                    console.log(response)
+                    Window.Kakao.API.request({
+                        url: '/v2/user/me',
+                        success: function (response) {
+                            console.log(response)
+                        },
+                        fail: function (error) {
+                            console.log(error)
+                        },
+                    })
+                },
+                fail: function (error) {
+                    console.log(error)
+                },
+            })
         }
     </script>
 </head>
